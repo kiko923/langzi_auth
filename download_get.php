@@ -1,19 +1,27 @@
 <?php
 include("./includes/common.php");
-$get_token=isset($_SESSION['get_token'])?$_SESSION['get_token']:exit;
+// $get_token=isset($_SESSION['get_token'])?$_SESSION['get_token']:exit;
 $uin=daddslashes($_GET['qq']);
 
-if(!$get_token || !$uin){exit();}
+if(!$uin || !$_GET['my']){
+    exit("<meta http-equiv='Content-Type' content='text/html; charset=utf-8'/><script language='javascript'>alert('未知错误');</script>");
+}
+// if(!$get_token || !$uin){exit();}
 
-$tokenid=base64_encode(md5($uin.md5($uin.'*$$*').'23132'.md5(date("Y-m-d-H"))));
+// $tokenid=base64_encode(md5($uin.md5($uin.'*$$*').'23132'.md5(date("Y-m-d-H"))));
 
-if($tokenid!=$get_token)exit("<meta http-equiv='Content-Type' content='text/html; charset=utf-8'/>
-<script language='javascript'>alert('验证信息已过期，请返回重新扫码验证。');history.go(-1);</script>");
+// if($tokenid!=$get_token)exit("<meta http-equiv='Content-Type' content='text/html; charset=utf-8'/>
+// <script language='javascript'>alert('验证信息已过期，请返回重新扫码验证。');history.go(-1);</script>");
 
 $row=$DB->get_row("SELECT * FROM auth_site WHERE qq='$uin' limit 1");
+
+if(!$row){
+    // die('授权平台不存在该QQ！');
+    exit("<meta http-equiv='Content-Type' content='text/html; charset=utf-8'/><script language='javascript'>alert('授权平台不存在该QQ！');</script>");
+}
 $authcode=$row['authcode'];
 $sign=$row['sign'];
-if(!$authcode || !$sign){exit();}
+// if(!$authcode || !$sign){exit();}
 
 //============生成压缩包开始==================
 require_once(SYSTEM_ROOT.'pclzip.php');
