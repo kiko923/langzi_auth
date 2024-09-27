@@ -124,24 +124,23 @@ function get_km(){
     }
     return $randstr."_".$randstr1."_".$randstr2."_".$randstr3;
 }
-function real_ip(){
-	$ip = $_SERVER['REMOTE_ADDR'];
-	if(isset($_SERVER['HTTP_X_FORWARDED_FOR']) && preg_match_all('#\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}#s', $_SERVER['HTTP_X_FORWARDED_FOR'], $matches)) {
-        foreach ($matches[0] AS $xip) {
-            if (!preg_match('#^(10|172\.16|192\.168)\.#', $xip)) {
-                $ip = $xip;
-                break;
-            }
+function real_ip()
+{
+        if (isset($_SERVER['HTTP_CDN_SRC_IP']) && $_SERVER['HTTP_CDN_SRC_IP'] != 'unknown') {
+            $realip = $_SERVER["HTTP_CDN_SRC_IP"];
+        } elseif (getenv('HTTP_X_FORWARDED_FOR')) {
+            $realip = getenv('HTTP_X_FORWARDED_FOR');
+        } elseif (getenv('HTTP_CLIENT_IP')) {
+            $realip = getenv('HTTP_CLIENT_IP');
+        } else {
+            $realip = getenv('REMOTE_ADDR');
         }
-	} elseif (isset($_SERVER['HTTP_CLIENT_IP']) && preg_match('/^([0-9]{1,3}\.){3}[0-9]{1,3}$/', $_SERVER['HTTP_CLIENT_IP'])) {
-		$ip = $_SERVER['HTTP_CLIENT_IP'];
-	} elseif (isset($_SERVER['HTTP_CF_CONNECTING_IP']) && preg_match('/^([0-9]{1,3}\.){3}[0-9]{1,3}$/', $_SERVER['HTTP_CF_CONNECTING_IP'])) {
-		$ip = $_SERVER['HTTP_CF_CONNECTING_IP'];
-	} elseif (isset($_SERVER['HTTP_X_REAL_IP']) && preg_match('/^([0-9]{1,3}\.){3}[0-9]{1,3}$/', $_SERVER['HTTP_X_REAL_IP'])) {
-		$ip = $_SERVER['HTTP_X_REAL_IP'];
-	}
-return $ip;
-}
+     
+        $realip = explode(',', $realip);
+        if ($realip[0] === '::1') return '127.0.0.1';
+        return $realip[0];
+
+    }
 function get_ip_city($ip){
     $url="http://ip.taobao.com/service/getIpInfo.php?ip=".$ip;
     $ipinfo=json_decode(file_get_contents($url)); 
@@ -240,9 +239,26 @@ function showmsg($content = '未知的异常',$type = 4,$back = false){
 		echo '</div></div>';
 	exit;
 }
+function getIP()
+    {
+        if (isset($_SERVER['HTTP_CDN_SRC_IP']) && $_SERVER['HTTP_CDN_SRC_IP'] != 'unknown') {
+            $realip = $_SERVER["HTTP_CDN_SRC_IP"];
+        } elseif (getenv('HTTP_X_FORWARDED_FOR')) {
+            $realip = getenv('HTTP_X_FORWARDED_FOR');
+        } elseif (getenv('HTTP_CLIENT_IP')) {
+            $realip = getenv('HTTP_CLIENT_IP');
+        } else {
+            $realip = getenv('REMOTE_ADDR');
+        }
+     
+        $realip = explode(',', $realip);
+        if ($realip[0] === '::1') return '127.0.0.1';
+        return $realip[0];
+
+    }
 function checkauth($url,$authcode){
 	global $DB,$date,$conf;
-	$ip = isset($_SERVER['ACE_VER'])?$_SERVER['HTTP_X_REAL_IP']:$_SERVER['REMOTE_ADDR'];
+	$ip = getIP();
 	if(!$url && !$authcode)return false;
 	if($conf['checkq']==1){
 		if($conf['switch']==1){
