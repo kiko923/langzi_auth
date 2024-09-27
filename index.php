@@ -15,7 +15,7 @@ if($url){
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-    <title>浪子易支付系统 - 正版查询</title>
+    <title>永至授权系统 - 正版查询</title>
   <link href="//lib.baomitu.com/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
   <script src="//lib.baomitu.com/jquery/1.12.4/jquery.min.js"></script>
   <script src="//lib.baomitu.com/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -67,7 +67,7 @@ function checkURL()
 </script>
 <div class="container">    <div class="header">
         <ul class="nav nav-pills pull-right" role="tablist">
-          <li role="presentation" class="active"><a href="index.php">正版查询</a></li>
+          <li role="presentation" class="active"><a href="">正版查询</a></li>
           <li role="presentation"><a href="http://wpa.qq.com/msgrd?v=3&uin=<?php echo $conf['kfqq'] ?>&site=qq&menu=yes">购买程序</a></li>
         </ul>
         <h3 class="text-muted" align="left">正版查询</h3>
@@ -81,22 +81,23 @@ function checkURL()
 if($url = daddslashes(base64_decode(urldecode($_GET['u'])))){
         echo '<label>查询域名：</label>'.$url.'<br>';
         if(checkauth2($url)){
-            echo '<div class="alert alert-success"><img src="assets/img/ico_success.png">查询结果：正版授权！</div>';
+            echo '<div class="alert alert-success">查询结果：正版授权！</div>';
         }else{
-            echo '<div class="alert alert-danger"><img src="assets/img/ico_tip.png">查询结果：该网站未授权！</div>';
+            echo '<div class="alert alert-danger">查询结果：该网站未授权！</div>';
     }
 }
 $DB->close();
 ?>
 	 <hr><div class="container-fluid">
   <a href="http://wpa.qq.com/msgrd?v=3&uin=<?php echo $conf['kfqq'] ?>&site=qq&menu=yes" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-credit-card"></span>购买</a>
-  <a href="./" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-exclamation-sign"></span> 帮助</a> 
+  <!--<a href="./" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-exclamation-sign"></span> 帮助</a> -->
+  <a href="/get" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-exclamation-sign"></span> 下载</a> 
   <button type="button" class="btn btn-info btn-sm" data-toggle="collapse" data-target="#lxkf-1"><span class="glyphicon glyphicon-user"></span> 客服</button> 
   <a href="http://wpa.qq.com/msgrd?v=3&uin=<?php echo $conf['kfqq'] ?>&site=qq&menu=yes" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-pencil"></span> 反馈</a>
 <a href="wx.html" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-credit-card"></span>授权</a>
 </div>
 <p style="text-align:center"><br><br>
-            <p class="text-white mb-0"><?php echo date("Y")?> &copy; <a href=""><?php echo $conf['sitename']?></a>Powered by <a href="./">浪子</a>!</p>
-<a href="https://beian.miit.gov.cn/">京ICP备8888888号-1</a>
+            <p class="text-white mb-0"><?php echo date("Y")?> &copy; <a href=""><?php echo $conf['sitename']?></a>Powered by <a href="./">永至科技</a>!</p>
+<!--<a href="https://beian.miit.gov.cn/">京ICP备8888888号-1</a>-->
 </body>
 </html>
