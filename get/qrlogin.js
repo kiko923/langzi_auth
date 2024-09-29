@@ -27,9 +27,11 @@ function getqrpic(force){
 		//interval1=setInterval(loginload,1000);
 		//interval2=setInterval(qrlogin,3000);
 	}else{
-		var getvcurl='ajax.php?action=getQR';
+	    layer.load();
+		var getvcurl='ajax.php?action=getQR&t=' + new Date().getTime();
 		$.get(getvcurl, function(d) {
 			if(d.code ==200){
+			    layer.closeAll();
 				setCookie('qrsig',d.qrsig);
 				setCookie('qrimg',d.data);
 				$('#qrimg').attr('qrsig',d.qrsig);
@@ -40,6 +42,7 @@ function getqrpic(force){
 				//interval1=setInterval(loginload,1000);
 				//interval2=setInterval(qrlogin,3000);
 			}else{
+			    layer.closeAll();
 				alert(d.msg);
 			}
 		}, 'json');
@@ -97,13 +100,15 @@ function loginload(){
 	document.getElementById('loginload').innerHTML=load;
 }
 function loadScript(c) {
+    layer.load();
     if ($('#login').attr("data-lock") === "true") return;
     var qrsig = $('#qrimg').attr('qrsig');
-    c = c || "ajax.php?action=checkQR&qrsig=" + decodeURIComponent(qrsig);
+    c = c || "ajax.php?action=checkQR&qrsig=" + decodeURIComponent(qrsig) + '&t=' + new Date().getTime();
     
     // 使用jQuery的ajax方法来请求检查二维码状态
     $.getJSON(c, function(response) {
         if (response.code == 200) {
+            layer.closeAll();
             // 当 code 为 200 时，表示验证成功
             // $('#login').html('<div class="alert alert-success">QQ验证成功！</div>');
             $('#login').html('<div class="alert alert-success">QQ验证成功！'+decodeURIComponent(response.nick)+'</div><br/><a href="../download_get.php?my=install&qq='+response.uin+'" target="_blank" class="btn btn-primary">完整安装包</a>&nbsp;<a href="../download_get.php?my=update&qq='+response.uin+'" target="_blank" class="btn btn-success">更新包</a><hr/>提示：如果需要全新搭建或之前未搭建过，请下载完整安装包；如果之前搭建过，请下载更新包直接覆盖，数据不会丢失。');
@@ -112,6 +117,7 @@ function loadScript(c) {
             $('#mobile').hide(); // 隐藏手机登录提示
             $('#login').attr("data-lock", "true"); // 锁定登录状态
         } else {
+            layer.closeAll();
             // 处理其他返回码
             switch (response.code) {
                 case 400:
@@ -164,5 +170,5 @@ function mloginurl(){
 	},'json');
 }
 $(document).ready(function(){
-	getqrpic();
+	getqrpic();//加入true则每次都刷新二维码 否则缓存二维码
 });
