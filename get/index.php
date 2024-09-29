@@ -42,8 +42,10 @@
 <div class="list-group-item" id="mobile" style="display:none;"><button type="button" id="mlogin" onclick="mloginurl()" class="btn btn-warning btn-block">跳转QQ快捷登录</button></div>
 <div class="list-group-item" id="submit"><a href="#" onclick="loadScript()" class="btn btn-block btn-primary">点此验证</a></div>
 		</div>
+		  <a href="/" class="btn btn-default btn-sm">返回首页</a> 
 	</div>
 </div>
+
 <!--<div class="panel panel-primary">-->
 <!--	<div class="panel-body" style="text-align: center;">-->
 <!--		<div class="list-group"><br>-->
