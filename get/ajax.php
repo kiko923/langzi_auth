@@ -29,6 +29,18 @@ if ($_GET['action'] == 'checkQR') {
     
     $qrsig = $_SESSION['qrsig'];
     $result = $wx->ListenQR($qrsig);
+    // echo json_encode($result);
+    
+    // $skey = $result['skey'];
+    // $pskey = $result['pskey'];
+    // $superkey = $result['superkey'];
+
+    //写入SESSION
+    $_SESSION['uin'] = $result['uin'];
+    $_SESSION['skey'] = $result['skey'];
+    $_SESSION['pskey'] = $result['pskey'];
+    $_SESSION['superkey'] = $result['superkey'];
+    $_SESSION['nick'] = $result['nick'];
     
     if(isset($result['uin'])){
         echo json_encode(array('code'=>$result['code'],'nick'=>$result['nick'],'uin'=>$result['uin']));  // 返回 ListenQR 的结果
