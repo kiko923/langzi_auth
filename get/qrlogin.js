@@ -24,8 +24,8 @@ function getqrpic(force){
 		if( /Android|SymbianOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Windows Phone|Midp/i.test(navigator.userAgent) && navigator.userAgent.indexOf("QQ/") == -1) {
 			$('#mobile').show();
 		}
-		//interval1=setInterval(loginload,1000);
-		//interval2=setInterval(qrlogin,3000);
+		interval1=setInterval(loginload,1000);
+// 		interval2=setInterval(qrlogin,3000);
 	}else{
 	    layer.load();
 		var getvcurl='ajax.php?action=getQR&t=' + new Date().getTime();
@@ -39,7 +39,7 @@ function getqrpic(force){
 				if( /Android|SymbianOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Windows Phone|Midp/i.test(navigator.userAgent) && navigator.userAgent.indexOf("QQ/") == -1) {
 					$('#mobile').show();
 				}
-				//interval1=setInterval(loginload,1000);
+				interval1=setInterval(loginload,1000);
 				//interval2=setInterval(qrlogin,3000);
 			}else{
 			    layer.closeAll();
@@ -48,46 +48,46 @@ function getqrpic(force){
 		}, 'json');
 	}
 }
-function ptuiCB(code,uin,sid,skey,pskey,pskey2,nick){
-	var msg='请扫描二维码';
-	switch(code){
-		case '0':
-			$('#login').html('<div class="alert alert-success">QQ验证成功！'+decodeURIComponent(nick)+'</div><br/><a href="../download_get.php?my=install&qq='+uin+'" target="_blank" class="btn btn-primary">完整安装包</a>&nbsp;<a href="../download_get.php?my=update&qq='+uin+'" target="_blank" class="btn btn-success">更新包</a><hr/>提示：如果需要全新搭建或之前未搭建过，请下载完整安装包；如果之前搭建过，请下载更新包直接覆盖，数据不会丢失。');
-			$('#qrimg').hide();
-			$('#submit').hide();
-			$('#mobile').hide();
-			$('#login').attr("data-lock", "true");
-			//var url="/user/addqq2?uin="+a+"&skey="+b+"&cookie="+c+"&r="+Math.random(1);
-			//loadScript(url);
-			break;
-		case '1':
-			getqrpic();
-			//document.getElementById('loginpic').src='/qlogin/captcha.php?do=ptqrshow&appid=549000929&e=2&l=M&s=3&d=72&v=4&daid=147&t='+Math.random(1);
-			alert('请重新扫描二维码');
-			msg='请重新扫描二维码';
-			break;
-		case '2':
-			alert('请使用QQ手机版扫描二维码后再点击验证');
-			msg='使用QQ手机版扫描二维码';
-			break;
-		case '3':
-			alert('扫码成功，请在手机上确认授权登录');
-			msg='扫码成功，请在手机上确认授权登录';
-			break;
-		case '4':
-			alert('你的QQ未通过验证，请使用购买授权的QQ扫码！');
-			msg='你的QQ未通过验证，请使用购买授权的QQ扫码！';
-			break;
-		case '5':
-			alert('QQ验证失败，请解除登录异常后重试！');
-			msg='QQ验证失败，请解除登录异常后重试！';
-			break;
-		default:
-			msg=sid;
-			break;
-	}
-	$('#loginmsg').html(msg);
-}
+// function ptuiCB(code,uin,sid,skey,pskey,pskey2,nick){
+// 	var msg='请扫描二维码';
+// 	switch(code){
+// 		case '0':
+// 			$('#login').html('<div class="alert alert-success">QQ验证成功！' + decodeURIComponent(nick) + '</div><br/><a href="../download_get.php?my=install&qq=' + uin + '&r=' + Date.now() + '" target="_blank" class="btn btn-primary">完整安装包</a>&nbsp;<a href="../download_get.php?my=update&qq=' + uin + '&r=' + Date.now() + '" target="_blank" class="btn btn-success">更新包</a><hr/>提示：如果需要全新搭建或之前未搭建过，请下载完整安装包；如果之前搭建过，请下载更新包直接覆盖，数据不会丢失。');
+// 			$('#qrimg').hide();
+// 			$('#submit').hide();
+// 			$('#mobile').hide();
+// 			$('#login').attr("data-lock", "true");
+// 			//var url="/user/addqq2?uin="+a+"&skey="+b+"&cookie="+c+"&r="+Math.random(1);
+// 			//loadScript(url);
+// 			break;
+// 		case '1':
+// 			getqrpic();
+// 			//document.getElementById('loginpic').src='/qlogin/captcha.php?do=ptqrshow&appid=549000929&e=2&l=M&s=3&d=72&v=4&daid=147&t='+Math.random(1);
+// 			alert('请重新扫描二维码');
+// 			msg='请重新扫描二维码';
+// 			break;
+// 		case '2':
+// 			alert('请使用QQ手机版扫描二维码后再点击验证');
+// 			msg='使用QQ手机版扫描二维码';
+// 			break;
+// 		case '3':
+// 			alert('扫码成功，请在手机上确认授权登录');
+// 			msg='扫码成功，请在手机上确认授权登录';
+// 			break;
+// 		case '4':
+// 			alert('你的QQ未通过验证，请使用购买授权的QQ扫码！');
+// 			msg='你的QQ未通过验证，请使用购买授权的QQ扫码！';
+// 			break;
+// 		case '5':
+// 			alert('QQ验证失败，请解除登录异常后重试！');
+// 			msg='QQ验证失败，请解除登录异常后重试！';
+// 			break;
+// 		default:
+// 			msg=sid;
+// 			break;
+// 	}
+// 	$('#loginmsg').html(msg);
+// }
 function loginload(){
 	if ($('#login').attr("data-lock") === "true") return;
 	var load=document.getElementById('loginload').innerHTML;
@@ -111,7 +111,7 @@ function loadScript(c) {
             layer.closeAll();
             // 当 code 为 200 时，表示验证成功
             // $('#login').html('<div class="alert alert-success">QQ验证成功！</div>');
-            $('#login').html('<div class="alert alert-success">QQ验证成功！'+decodeURIComponent(response.nick)+'</div><br/><a href="../download_get.php?my=install&qq='+response.uin+'" target="_blank" class="btn btn-primary">完整安装包</a>&nbsp;<a href="../download_get.php?my=update&qq='+response.uin+'" target="_blank" class="btn btn-success">更新包</a><hr/>提示：如果需要全新搭建或之前未搭建过，请下载完整安装包；如果之前搭建过，请下载更新包直接覆盖，数据不会丢失。');
+            $('#login').html('<div class="alert alert-success">QQ验证成功！' + decodeURIComponent(response.nick) + '</div><br/><a href="../download_get.php?my=install&qq=' + response.uin + '&r=' + Date.now() + '" target="_blank" class="btn btn-primary">完整安装包</a>&nbsp;<a href="../download_get.php?my=update&qq=' + response.uin + '&r=' + Date.now() + '" target="_blank" class="btn btn-success">更新包</a><hr/>提示：如果需要全新搭建或之前未搭建过，请下载完整安装包；如果之前搭建过，请下载更新包直接覆盖，数据不会丢失。');
             $('#qrimg').hide(); // 隐藏二维码
             $('#submit').hide(); // 隐藏提交按钮
             $('#mobile').hide(); // 隐藏手机登录提示
