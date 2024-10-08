@@ -111,7 +111,7 @@ function loadScript(c) {
             layer.closeAll();
             // 当 code 为 200 时，表示验证成功
             // $('#login').html('<div class="alert alert-success">QQ验证成功！</div>');
-            $('#login').html('<div class="alert alert-success">QQ验证成功！' + decodeURIComponent(response.nick) + '</div><br/><a href="../download_get.php?my=install&qq=' + response.uin + '&r=' + Date.now() + '" target="_blank" class="btn btn-primary">完整安装包</a>&nbsp;<a href="../download_get.php?my=update&qq=' + response.uin + '&r=' + Date.now() + '" target="_blank" class="btn btn-success">更新包</a><hr/>提示：如果需要全新搭建或之前未搭建过，请下载完整安装包；如果之前搭建过，请下载更新包直接覆盖，数据不会丢失。');
+            $('#login').html('<div class="alert alert-success">QQ验证成功！' + decodeURIComponent(response.nick) + '</div><br/><a href="../download_get.php?my=install&qq=' + response.uin + '&r=' + Date.now() + '" target="_blank" class="btn btn-primary">完整安装包</a>&nbsp;<a href="../download_get.php?my=update&qq=' + response.uin + '&r=' + Date.now() + '" target="_blank" class="btn btn-success">更新包</a><hr/><b>提示：</b><br>1.以上链接10分钟内有效<br>2.如果需要全新搭建或之前未搭建过，请下载完整安装包；如果之前搭建过，请下载更新包直接覆盖，数据不会丢失。');
             $('#qrimg').hide(); // 隐藏二维码
             $('#submit').hide(); // 隐藏提交按钮
             $('#mobile').hide(); // 隐藏手机登录提示
