@@ -1,8 +1,13 @@
 <?php
 include("./includes/common.php");
-// $get_token=isset($_SESSION['get_token'])?$_SESSION['get_token']:exit;
-$uin=daddslashes($_GET['qq']);
+session_start();
 
+
+$qrsig = (isset($_SESSION['qrsig']) && isset($_SESSION['uin']) && isset($_SESSION['skey']) && isset($_SESSION['pskey']) && isset($_SESSION['superkey']) && isset($_SESSION['nick'])) 
+    ? $_SESSION['qrsig'] 
+    : header('Location: /get');
+    
+$uin=daddslashes($_GET['qq']);
 if(!$uin || !$_GET['my']){
     exit("<meta http-equiv='Content-Type' content='text/html; charset=utf-8'/><script language='javascript'>alert('未知错误');</script>");
 }
