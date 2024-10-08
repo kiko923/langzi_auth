@@ -7,7 +7,20 @@ $qrsig = (isset($_SESSION['qrsig']) && isset($_SESSION['uin']) && isset($_SESSIO
     ? $_SESSION['qrsig'] 
     : header('Location: /get');
     
-$uin=daddslashes($_GET['qq']);
+$uin = daddslashes($_GET['qq']);
+
+// 获取当前时间戳（毫秒级）
+$currentTimestamp = round(microtime(true) * 1000);
+
+// 获取传入的 r 参数（毫秒级）
+$r = isset($_GET['r']) ? intval($_GET['r']) : 0;
+
+// 检测 r 是否是有效的时间戳并检查时间差（600000 毫秒 = 10 分钟）
+if ($r === 0 || ($currentTimestamp - $r) > 600000) {
+    // 如果 r 参数无效，或者时间差大于 10 分钟（600000 毫秒），返回错误
+    exit("<meta http-equiv='Content-Type' content='text/html; charset=utf-8'/><script language='javascript'>alert('获取超时，请重新获取');</script>");
+}
+
 if(!$uin || !$_GET['my']){
     exit("<meta http-equiv='Content-Type' content='text/html; charset=utf-8'/><script language='javascript'>alert('未知错误');</script>");
 }
