@@ -46,7 +46,7 @@ function sysmsg($msg, $exit = false) {
 $authcode = "你的授权码"; // 这里需要将'你的授权码'替换为实际的授权码
 
 if(!isset($_SESSION['authcode'])){
-    $query = curl_get("https://auth.wicdn.com/check.php?url=".$_SERVER["HTTP_HOST"]."&authcode=".$authcode);
+    $query = curl_get("https://授权站域名/check.php?url=".$_SERVER["HTTP_HOST"]."&authcode=".$authcode);
     if ($query = json_decode($query, true)) {
         if ($query["code"] == 1) {
             $_SESSION["authcode"] = $authcode;
